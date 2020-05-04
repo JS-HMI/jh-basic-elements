@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es2018",
+      "moduleResolution":"Node",
+        "noImplicitAny": true,
+        "outDir": "./",
+        "allowJs": false,
+        "sourceMap": false
+    },
+
+    "include": [
+        "src/*"
+    ],
+    "exclude": ["./index.js"]
+}
+
