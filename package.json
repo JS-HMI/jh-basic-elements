@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/JaS-HMI/valves#readme",
   "dependencies": {
-    "jashmi": "file:../jashmi",
-    "lit-element": "^2.3.1"
+    "jashmi": "file:../jashmi"
   },
   "devDependencies": {
     "typescript": "^3.8.3"

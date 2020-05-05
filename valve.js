@@ -1,11 +1,7 @@
-import {hmiElement} from 'jashmi'
-import {html, LitElement,css} from 'jashmi'
-
-export class pvrIcon extends LitElement 
-{
-    render()
-    {
-        return html`
+import { html, LitElement } from 'jashmi';
+export class pvrIcon extends LitElement {
+    render() {
+        return html `
         <svg viewBox="251.36 1.721 53.863 51.142" xmlns="http://www.w3.org/2000/svg">
             <g>
             <g>
@@ -22,14 +18,10 @@ export class pvrIcon extends LitElement
         `;
     }
 }
-
-customElements.define("pvr-icon",pvrIcon);
-
-export class pvdIcon extends LitElement
-{
-    render()
-    {
-        return html`
+customElements.define("pvr-icon", pvrIcon);
+export class pvdIcon extends LitElement {
+    render() {
+        return html `
         <svg viewBox="140.37 3.264 54.407 50.055" xmlns="http://www.w3.org/2000/svg">
             <g>
             <g>
@@ -44,45 +36,4 @@ export class pvdIcon extends LitElement
         `;
     }
 }
-
-customElements.define("pvd-icon",pvdIcon);
-
-export class ValvePR extends hmiElement {
-    static get styles() {
-        return css `
-            :host{
-                display:flex;
-                flex-direction:column;
-                align-items:center;
-            }
-            div{
-                font-family: 'Roboto', sans-serif;
-                border : solid 1px gray;
-                border-radius: 0.5rem;
-                padding:0.3rem;
-                margin-bottom : 0.2rem;
-                width:100%;
-                text-align:center;
-            }
-            div[err]{
-                color : red;
-            }
-            bool-color{
-                width : 100%;
-            }
-        `;
-    }
-    render() {
-        return html `
-            <div>
-            <strong >${this.name}</strong>
-            </div>
-            <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
-                <pvr-icon></pvr-icon>
-            </bool-color>
-        `;
-    }
-}
-//@ts-ignore
-customElements.define("valve-pr", ValvePR);
-
+customElements.define("pvd-icon", pvdIcon);
