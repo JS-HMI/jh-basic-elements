@@ -89,6 +89,9 @@ export class ValvePR extends LitElement {
             div[err]{
                 color : red;
             }
+            bool-color{
+                width : 100%;
+            }
         `;
     }
     render()
