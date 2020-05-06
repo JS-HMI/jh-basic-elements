@@ -50,23 +50,6 @@ customElements.define("pvd-icon",pvdIcon);
 export class ValvePR extends hmiElement {
     static get styles() {
         return css `
-            :host{
-                display:flex;
-                flex-direction:column;
-                align-items:center;
-            }
-            div{
-                font-family: 'Roboto', sans-serif;
-                border : solid 1px gray;
-                border-radius: 0.5rem;
-                padding:0.3rem;
-                margin-bottom : 0.2rem;
-                width:100%;
-                text-align:center;
-            }
-            div[err]{
-                color : red;
-            }
             bool-color{
                 width : 100%;
             }
@@ -74,15 +57,34 @@ export class ValvePR extends hmiElement {
     }
     render() {
         return html `
-            <div>
-            <strong >${this.name}</strong>
-            </div>
-            <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
-                <pvr-icon></pvr-icon>
-            </bool-color>
+            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
+                    <pvr-icon></pvr-icon>
+                </bool-color>
+            </hmi-label>
         `;
     }
 }
 //@ts-ignore
 customElements.define("valve-pr", ValvePR);
 
+export class ValvePD extends hmiElement {
+    static get styles() {
+        return css `
+            bool-color{
+                width : 100%;
+            }
+        `;
+    }
+    render() {
+        return html `
+            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
+                    <pvd-icon></pvd-icon>
+                </bool-color>
+            </hmi-label>
+        `;
+    }
+}
+//@ts-ignore
+customElements.define("valve-pd", ValvePD);

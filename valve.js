@@ -1,4 +1,5 @@
-import { html, LitElement } from 'jashmi';
+import { hmiElement } from 'jashmi';
+import { html, LitElement, css } from 'jashmi';
 export class pvrIcon extends LitElement {
     render() {
         return html `
@@ -37,3 +38,43 @@ export class pvdIcon extends LitElement {
     }
 }
 customElements.define("pvd-icon", pvdIcon);
+export class ValvePR extends hmiElement {
+    static get styles() {
+        return css `
+            bool-color{
+                width : 100%;
+            }
+        `;
+    }
+    render() {
+        return html `
+            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
+                    <pvr-icon></pvr-icon>
+                </bool-color>
+            </hmi-label>
+        `;
+    }
+}
+//@ts-ignore
+customElements.define("valve-pr", ValvePR);
+export class ValvePD extends hmiElement {
+    static get styles() {
+        return css `
+            bool-color{
+                width : 100%;
+            }
+        `;
+    }
+    render() {
+        return html `
+            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
+                    <pvd-icon></pvd-icon>
+                </bool-color>
+            </hmi-label>
+        `;
+    }
+}
+//@ts-ignore
+customElements.define("valve-pd", ValvePD);
