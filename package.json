@@ -1,9 +1,9 @@
 {
   "name": "valves",
   "version": "0.0.1",
-  "description": "A collection of HMI elements representing P&ID valves",
-  "main": "valve.js",
-  "types": "src/valve.ts",
+  "description": "A collection of HMI elements representing P&ID entities made with JS-HMI.",
+  "main": "index.js",
+  "types": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

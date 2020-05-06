@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "es6",
         "target": "es2018",
-      "moduleResolution":"Node",
+        "moduleResolution":"Node",
         "noImplicitAny": true,
         "outDir": "./",
         "allowJs": false,
