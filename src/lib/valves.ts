@@ -1,5 +1,5 @@
-import {hmiElement} from 'jashmi'
-import {html, LitElement,css} from 'jashmi'
+import {hmiElement} from 'jahmin'
+import {html, LitElement,css} from 'jahmin'
 
 
 export class pvrIcon extends LitElement 
