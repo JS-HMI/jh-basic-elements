@@ -1,5 +1,5 @@
 {
-  "name": "valves",
+  "name": "jmn-basic-elemens",
   "version": "0.0.1",
   "description": "A collection of HMI elements representing P&ID entities made with JS-HMI.",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JaS-HMI/valves.git"
+    "url": "git+https://github.com/JS-HMI/jmn-basic-elements"
   },
   "keywords": [
     "HMI",
@@ -19,9 +19,9 @@
   "author": "Alessandro Manfredini",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JaS-HMI/valves/issues"
+    "url": "https://github.com/JS-HMI/jmn-basic-elements/issues"
   },
-  "homepage": "https://github.com/JaS-HMI/valves#readme",
+  "homepage": "https://github.com/JS-HMI/jmn-basic-elements#readme",
   "dependencies": {
     "jahmin": "file:../jahmin"
   },
