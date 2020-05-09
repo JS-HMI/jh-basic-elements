@@ -31,7 +31,7 @@ export class pvdIcon extends LitElement
     render()
     {
         return html`
-        <svg viewBox="140.37 3.264 54.407 50.055" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="140.37 3.264 54.407 50.055" xmlns="http://www.w3.org/2000/svg" >
             <g>
             <g>
                 <polygon  points="167.1,37.2 141.9,22.6 141.9,51.7" style="stroke-miterlimit: 10;"></polygon>
@@ -59,6 +59,7 @@ export class ValvePR extends hmiElement {
     render() {
         return html `
             <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <slot slot="label">${this.name}</slot>
                 <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
                     <pvr-icon></pvr-icon>
                 </bool-color>
@@ -80,6 +81,7 @@ export class ValvePD extends hmiElement {
     render() {
         return html `
             <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+                <slot slot="label">${this.name}</slot>
                 <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
                     <pvd-icon></pvd-icon>
                 </bool-color>
