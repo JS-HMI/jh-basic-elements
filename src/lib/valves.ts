@@ -51,6 +51,7 @@ customElements.define("pvd-icon",pvdIcon);
 export class ValvePR extends hmiElement {
     static get styles() {
         return css `
+            /*necessary for chrome flex-box issue*/
             bool-color{
                 width : 100%;
             }
@@ -73,6 +74,7 @@ customElements.define("valve-pr", ValvePR);
 export class ValvePD extends hmiElement {
     static get styles() {
         return css `
+            /*necessary for chrome flex-box issue*/
             bool-color{
                 width : 100%;
             }

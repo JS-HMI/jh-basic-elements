@@ -1,6 +1,8 @@
 import {hmiElement} from 'jahmin'
-import {css,html} from 'jahmin'
+import {css,html, VarStatusCodesLit as vsc, VarStatusCodes as vs, normalize} from 'jahmin'
 import './miscellaneus.js'
+
+
 
 export class numericIndicator extends hmiElement {
 
@@ -22,7 +24,7 @@ export class numericIndicator extends hmiElement {
     }
     static get styles()
     {
-        return css`
+        return [normalize, css`
             :host{
                 display:flex;
                 flex-direction: column;
@@ -55,7 +57,7 @@ export class numericIndicator extends hmiElement {
                 display : none;
             }
 
-        `;
+        `];
     }
 
     render()
@@ -70,7 +72,6 @@ export class numericIndicator extends hmiElement {
         `;
     }
 }
-//@ts-ignore
 customElements.define("numeric-ind",numericIndicator);
 
 export class setNumber extends hmiElement
@@ -78,6 +79,7 @@ export class setNumber extends hmiElement
     precision: number
     unit: string
     showinpt : boolean
+    inpt_val : string
 
     static get properties(){
         let p = super.properties;
@@ -98,12 +100,9 @@ export class setNumber extends hmiElement
         this.onblur = this.hide.bind(this);
     }
 
-    /*get inpt_val(){
-        return this.value.toString();
-    }*/
     static get styles()
     {
-        return css`
+        return [normalize, css`
             :host{
                 display:flex;
                 flex-direction: column;
@@ -113,9 +112,18 @@ export class setNumber extends hmiElement
                 color:var(--base-color,#333333);
                 cursor: pointer;
                 width: 100%;
+                max-width : 8rem;
                 padding-top: 0.3rem;
                 padding-bottom: 0.2rem;
 
+            }
+            :host([status="${vsc.Error}"])
+            {
+                cursor: not-allowed;
+            }
+            :host([status="${vsc.Error}"])
+            {
+                cursor: not-allowed;
             }
             :host([err]){
                 background-color:red;
@@ -129,15 +137,12 @@ export class setNumber extends hmiElement
                 color : blue;
                 width:100%;
                 margin-bottom: 0.2rem;
-                
-                min-height: 0rem;
-                -moz-transition: width 1s ease-in-out, left 1.5s ease-in-out;
-               -webkit-transition: width 1s ease-in-out, left 1.5s ease-in-out;
-                -moz-transition: width 1s ease-in-out, left 1.5s ease-in-out;
-                -o-transition: width 1s ease-in-out, left 1.5s ease-in-out;
-                transition: width 1s ease-in-out, left 1.5s ease-in-out;
-                
-                
+            }
+            :host([status="${vsc.Error}"]) > .set{
+                color : #8B0000;
+            }
+            :host([status="${vsc.Unsubscribed}"]) > .set{
+                color : #999900;
             }
             .inpt{
                 display:flex;
@@ -155,6 +160,20 @@ export class setNumber extends hmiElement
             }
             input{
                 width: 3rem;
+                margin:0px;
+                margin-right : 0.1rem;
+                color: hsl(0, 0%, 41%) ;
+                background-color:hsl(0, 0%, 100%);
+                border-radius:.4rem;
+                padding:0.5rem;
+                font-family: inherit; /* 1 */
+                font-size: 0.8rem; /* 1 */
+                font-weight: 500;
+                line-height: 1; /* 1 */
+                border: 1px solid hsl(0, 0%, 86%);
+            }
+            input:focus{
+                border-color : #00d1b2;
             }
             input:invalid{
                 border-color:red;
@@ -163,19 +182,54 @@ export class setNumber extends hmiElement
                 margin-left: 0.5rem;
                 width:0.5rem;
             }
-            x-triangle[show]{
+            x-triangle[rotate]{
                 transform: rotate(90deg); 
             }
-        `;
+
+            button {
+                margin : 0;
+                box-sizing : border-box;
+                text-align: center;
+                text-decoration: none;
+                font-size: .8rem;
+                font-weight: 700;
+                letter-spacing: .1rem;
+                padding: 0.2rem;
+                background-color: hsl(0, 0%, 100%);
+                border: 1px solid hsl(0, 0%, 86%);
+                border-radius: .4rem;
+                color: hsl(0, 0%, 41%) ;
+                cursor: pointer;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+            }
+            button:hover{
+                border-color : #00d1b2;
+            }
+            x-loader{
+                margin-left : 0.2rem;
+                width:0.8rem;
+            }
+            x-loader:not([show]){
+                display : none;
+            }
+            span[show]{
+                display:none;
+            }
+        `];
     }
     render()
     {
         return html`
                 <label><strong><slot></slot></strong></label>
-                <div class="set" id="setcont">set: ${Number.parseFloat(this.value).toFixed(this.precision)} <x-triangle ?show="${this.showinpt}"></x-triangle> </div>
+                <div class="set" id="setcont">set: 
+                    <span ?show="${this.status === "PENDING"}">${Number.parseFloat(this.value).toFixed(this.precision)}</span>
+                    <x-loader ?show="${this.status === "PENDING"}"></x-loader>
+                    <x-triangle ?rotate="${this.showinpt}"></x-triangle> 
+                </div>
                 <div id="form" class="inpt" ?show="${this.showinpt}">
-                        <input id="inpt" type="number" value="" step="${Math.pow(10,-1*this.precision)}">
-                        <input id="btn" type="submit" value="set" @click="${this.send}">
+                        <input id="inpt" type="number" ?disabled="${(this.status === "ERROR" || this.status === "UNSUBSCRIBED")}" value="" step="${Math.pow(10,-1*this.precision)}">
+                        <button id="btn" type="submit" ?disabled="${(this.status === "ERROR" || this.status === "UNSUBSCRIBED")}" @click="${this.send}">Set</button>
                 </div>
         `;
     }
@@ -193,6 +247,10 @@ export class setNumber extends hmiElement
     }
     show(e:Event)
     {
+        if(this.status === "ERROR" || this.status === "UNSUBSCRIBED") {
+            this.showinpt = true;
+            setTimeout(this.hide.bind(this), 1000);
+        }
         //e.preventDefault();
         //if(this.showinpt === true) this.hide
         if(this.showinpt === true) return;
@@ -203,8 +261,9 @@ export class setNumber extends hmiElement
     }
     async send(e:KeyboardEvent)
     {
+        if(this.status === vs.Error || this.status === vs.Unsubscribed) return;
         if(e instanceof KeyboardEvent  && e.keyCode !== 13 ) return;
-        let num = this.shadowRoot.getElementById('inpt').valueAsNumber;
+        let num = (<HTMLInputElement>this.shadowRoot.getElementById('inpt')).valueAsNumber;
         if( Number.isNaN(num)){
             return;
         }
@@ -213,9 +272,8 @@ export class setNumber extends hmiElement
             this.hide(null);
         }
         else {
-            this.setAttribute("err",true);
+            this.setAttribute("err","true");
         }
     }
 }
-//@ts-ignore
 customElements.define("set-number",setNumber);
