@@ -12,29 +12,30 @@
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
+            flex-wrap: wrap;
             align-items: center;
             width: 100%;
             height: 90vh;
         }
+        
     </style>
 </head>
 <body>
     
-    
-<div class="container"> 
-    <valve-pr name="PV01"></valve-pr> 
-    
-    <color-box name="FC01">
-        <numeric-ind name="FC01" unit="slpm"></numeric-ind>
-        <set-number name="setFC01"></set-number>
-    </color-box>
-    <valve-pd  name="PV02"></valve-pd> 
-    <color-box name="FC02">
-        <set-number name="setFC02">Whatever</set-number>
-    </color-box>
-    <vacum-pump name="KNF" ></vacum-pump>
+    <div class="container"> 
+        <valve-pr name="PV01"></valve-pr> 
+        
+        <color-box name="FC01">
+            <numeric-ind name="FC01" unit="slpm"></numeric-ind>
+            <set-number name="setFC01"></set-number>
+        </color-box>
+        <valve-pd  name="PV02"></valve-pd> 
+        <color-box name="FC02">
+            <set-number name="setFC02">Whatever</set-number>
+        </color-box>
+        <vacum-pump name="KNF" ></vacum-pump>
 
+    <h3><a href="pID.html">Go to P&ID demo</a></h3>
 </div>
-<h3><a href="pID.html">Go to P&ID demo</a></h3>
 </body>
 </html>
