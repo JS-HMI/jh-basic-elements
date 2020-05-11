@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="./main.js" ></script>
+    <style>
+        valve-pr, valve-pd, vacum-pump, color-box{
+            position: absolute;
+        }
+        color-box{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <img src="./p_id.png">
+    <valve-pr name="PV02" style="top: 415px; left: 29.25rem;"></valve-pr> 
+    <valve-pr name="PV01" style="top: 228px; left: 74.25px;" orientation="W"></valve-pr> 
+    <color-box name="FC01" style="top: 131px; left: 460.25px;">
+        <numeric-ind name="FC01" unit="slpm"></numeric-ind>
+        <set-number name="setFC01"></set-number>
+    </color-box>
+    <color-box name="PT06" style="top: 156px; left: 1100.25px;">
+        <numeric-ind name="PT06" unit="°K"></numeric-ind>
+    </color-box>
+</body>
+</html>
