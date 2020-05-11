@@ -1,5 +1,5 @@
 import {hmiElement} from 'jahmin'
-import {css,html, VarStatusCodesLit as vsc, VarStatusCodes as vs, normalize} from 'jahmin'
+import {css,html, VarStatusCodesLit as vsc, VarStatusCodes as vs, shadow_normalize} from 'jahmin'
 import './miscellaneus.js'
 
 
@@ -24,7 +24,7 @@ export class numericIndicator extends hmiElement {
     }
     static get styles()
     {
-        return [normalize, css`
+        return [shadow_normalize, css`
             :host{
                 display:flex;
                 flex-direction: column;
@@ -102,7 +102,7 @@ export class setNumber extends hmiElement
 
     static get styles()
     {
-        return [normalize, css`
+        return [shadow_normalize, css`
             :host{
                 display:flex;
                 flex-direction: column;
@@ -117,6 +117,7 @@ export class setNumber extends hmiElement
                 padding-bottom: 0.2rem;
 
             }
+            
             :host([status="${vsc.Error}"])
             {
                 cursor: not-allowed;

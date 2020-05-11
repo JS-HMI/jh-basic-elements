@@ -3,6 +3,9 @@ import {hmiElement,html,css} from 'jahmin'
 let  tmpl = document.createElement("template");
 tmpl.innerHTML = `
 <style>
+    :host{
+        display:block;
+    }
     .xcircle{
         fill: var(--basic-color, lightgray);
     }
@@ -26,23 +29,21 @@ export class vacumPumpIcon extends HTMLElement{
 customElements.define("vacum-pump-icon",vacumPumpIcon);
 
 export class vacumPump extends hmiElement {
-    static get styles(){
-        return css `
-            /*necessary for chrome flex-box issue*/
-            bool-color{
-                width : 100%;
-            }
-        `;
-    }
-    render()
+    orientation = "N";
+
+    static get properties()
     {
-        return html`
-        <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
-            <slot slot="label">${this.name}</slot>
-            <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
+        let x = super.properties;
+        x.orientation = {type:String};
+        return x;
+    }
+    render() {
+        return html `
+            <labeled-icon name="${this.name}"  engine="${this.engine}" system="${this.system}"
+                       orientation="${this.orientation}">
+                <slot slot="label">${this.name}</slot>
                 <vacum-pump-icon></vacum-pump-icon>
-            </bool-color>
-        </hmi-label>
+            </labeled-icon>
         `;
     }
 }

@@ -1,12 +1,17 @@
 import {hmiElement} from 'jahmin'
 import {html, LitElement,css} from 'jahmin'
-
+import './labelledIcon'
 
 export class pvrIcon extends LitElement 
 {
     render()
     {
         return html`
+        <style>
+            :host{ 
+                display:block;
+            }
+        </style>
         <svg viewBox="251.36 1.721 53.863 51.142" xmlns="http://www.w3.org/2000/svg">
             <g>
             <g>
@@ -31,6 +36,11 @@ export class pvdIcon extends LitElement
     render()
     {
         return html`
+        <style>
+            :host{ 
+                display:block;
+            }
+        </style>
         <svg viewBox="140.37 3.264 54.407 50.055" xmlns="http://www.w3.org/2000/svg" >
             <g>
             <g>
@@ -49,47 +59,43 @@ export class pvdIcon extends LitElement
 customElements.define("pvd-icon",pvdIcon);
 
 export class ValvePR extends hmiElement {
-    static get styles() {
-        return css `
-            /*necessary for chrome flex-box issue*/
-            bool-color{
-                width : 100%;
-            }
-        `;
+    orientation = "N";
+
+    static get properties()
+    {
+        let x = super.properties;
+        x.orientation = {type:String};
+        return x;
     }
     render() {
         return html `
-            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+            <labeled-icon name="${this.name}"  engine="${this.engine}" system="${this.system}"
+                       orientation="${this.orientation}">
                 <slot slot="label">${this.name}</slot>
-                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
-                    <pvr-icon></pvr-icon>
-                </bool-color>
-            </hmi-label>
+                <pvr-icon></pvr-icon>
+            </labeled-icon>
         `;
     }
 }
-//@ts-ignore
 customElements.define("valve-pr", ValvePR);
 
 export class ValvePD extends hmiElement {
-    static get styles() {
-        return css `
-            /*necessary for chrome flex-box issue*/
-            bool-color{
-                width : 100%;
-            }
-        `;
+    orientation = "N";
+
+    static get properties()
+    {
+        let x = super.properties;
+        x.orientation = {type:String};
+        return x;
     }
     render() {
         return html `
-            <hmi-label name="${this.name}"  engine="${this.engine}" system="${this.system}">
+            <labeled-icon name="${this.name}"  engine="${this.engine}" system="${this.system}"
+                       orientation="${this.orientation}">
                 <slot slot="label">${this.name}</slot>
-                <bool-color name="${this.name}"  engine="${this.engine}" system="${this.system}"> 
-                    <pvd-icon></pvd-icon>
-                </bool-color>
-            </hmi-label>
+                <pvd-icon></pvd-icon>
+            </labeled-icon>
         `;
     }
 }
-//@ts-ignore
 customElements.define("valve-pd", ValvePD);
