@@ -56,7 +56,9 @@ export class numericIndicator extends hmiElement {
             .val:not([show]){
                 display : none;
             }
-
+            :host([no-label])>label{
+                display : none;
+            }
         `];
     }
 
@@ -80,12 +82,14 @@ export class setNumber extends hmiElement
     unit: string
     showinpt : boolean
     inpt_val : string
+    size:string;
 
     static get properties(){
         let p = super.properties;
         p['precision'] = {type: Number};
         p['unit'] = {type: String};
         p['showinpt'] = {type : Boolean};
+        p['size'] = {type:String }
         return p ;
     }
 
@@ -98,6 +102,7 @@ export class setNumber extends hmiElement
         this.onkeydown  = this.send.bind(this);
         this.inpt_val = "";
         this.onblur = this.hide.bind(this);
+        this.size = ""
     }
 
     static get styles()
@@ -139,6 +144,13 @@ export class setNumber extends hmiElement
                 width:100%;
                 margin-bottom: 0.2rem;
             }
+            .set[size="medium"]{
+                font-size : medium;
+            }
+            .set[size="large"]{
+                font-size : large;
+            }
+
             :host([status="${vsc.Error}"]) > .set{
                 color : #8B0000;
             }
@@ -172,6 +184,14 @@ export class setNumber extends hmiElement
                 font-weight: 500;
                 line-height: 1; /* 1 */
                 border: 1px solid hsl(0, 0%, 86%);
+            }
+            input.medium{
+                width:7rem;
+                font-size: medium;
+            }
+            input.large{
+                width:7rem;
+                font-size: medium;
             }
             input:focus{
                 border-color : #00d1b2;
@@ -223,13 +243,13 @@ export class setNumber extends hmiElement
     {
         return html`
                 <label><strong><slot></slot></strong></label>
-                <div class="set" id="setcont">set: 
+                <div class="set" id="setcont" size="${this.size}"><span style="margin-right:0.4rem"><slot name="set-txt">set:</slot></span>  
                     <span ?show="${this.status === "PENDING"}">${Number.parseFloat(this.value).toFixed(this.precision)}</span>
                     <x-loader ?show="${this.status === "PENDING"}"></x-loader>
                     <x-triangle ?rotate="${this.showinpt}"></x-triangle> 
                 </div>
                 <div id="form" class="inpt" ?show="${this.showinpt}">
-                        <input id="inpt" type="number" ?disabled="${(this.status === "ERROR" || this.status === "UNSUBSCRIBED")}" value="" step="${Math.pow(10,-1*this.precision)}">
+                        <input class="${this.size}" id="inpt" type="number" ?disabled="${(this.status === "ERROR" || this.status === "UNSUBSCRIBED")}" value="" step="${Math.pow(10,-1*this.precision)}">
                         <button id="btn" type="submit" ?disabled="${(this.status === "ERROR" || this.status === "UNSUBSCRIBED")}" @click="${this.send}">Set</button>
                 </div>
         `;

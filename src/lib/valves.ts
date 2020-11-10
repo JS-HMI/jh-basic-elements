@@ -61,6 +61,10 @@ customElements.define("pvd-icon",pvdIcon);
 export class ValvePR extends hmiElement {
     orientation = "N";
 
+    constructor(){
+        super();
+        this.onclick = this.toggleme.bind(this) ;
+    }
     static get properties()
     {
         let x = super.properties;
@@ -76,26 +80,42 @@ export class ValvePR extends hmiElement {
             </labeled-icon>
         `;
     }
+    toggleme(ev:Event){
+        let toggle = this.value ? false : true;
+        this.Write(toggle);
+    }
 }
 customElements.define("valve-pr", ValvePR);
 
 export class ValvePD extends hmiElement {
     orientation = "N";
+    labeltop = "0";
+    labelleft = "0";
 
+    constructor(){
+        super();
+        this.onclick = this.toggleme.bind(this) ;
+    }
     static get properties()
     {
         let x = super.properties;
         x.orientation = {type:String};
+        x.labeltop = {type:String};
+        x.labelleft = {type:String};
         return x;
     }
     render() {
         return html `
             <labeled-icon name="${this.name}"  engine="${this.engine}" system="${this.system}"
-                       orientation="${this.orientation}">
+                       orientation="${this.orientation}" top="${this.labeltop}" left="${this.labelleft}">
                 <slot slot="label">${this.name}</slot>
                 <pvd-icon></pvd-icon>
             </labeled-icon>
         `;
+    }
+    toggleme(ev:Event){
+        let toggle = this.value ? false : true;
+        this.Write(toggle);
     }
 }
 customElements.define("valve-pd", ValvePD);
