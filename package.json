@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/JS-HMI/jmn-basic-elements#readme",
   "dependencies": {
-    "jahmin": "file:../jahmin"
+    "jahmin": "^0.1.0"
   },
   "devDependencies": {
     "rollup-plugin-node-resolve": "^5.2.0",
